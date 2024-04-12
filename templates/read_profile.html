@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h1 style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #f4f4f2; text-align: center;">This is {{ user.username }}</h1>
-<p style="font-family: 'Courier New', Courier, monospace; font-size: 16px; color: #363a27; text-align: center; padding: 10px 15px; border: 2px solid #a5c77f; border-radius: 4px; transition: background-color 0.3s, color 0.3s; background-color: #f3f0e9; margin-top: 10px;">
+<h1 style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: hsl(0, 0%, 100%); text-shadow: 2px 2px 0 #738c4e, -2px -2px 0 #738c4e, 2px -2px 0 #738c4e, -2px 2px 0 #738c4e; text-align: center;">This is {{ user.username }}</h1>
+<p style="font-family: 'Courier New', Courier, monospace; font-size: 16px; color: hwb(40 18% 73%); text-align: center; padding: 10px 15px; border: 2px solid #a5c77f; border-radius: 4px; transition: background-color 0.3s, color 0.3s; background-color: #f3f0e9; margin-top: 10px;">
     {{ user.bio if user.bio else "Oops, they hadn't introduce themselves yet..." }}
 </p>
 {% endblock %}

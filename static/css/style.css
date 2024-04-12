@@ -27,13 +27,6 @@ header, main {
   font-weight: normal;
 }
 
-/* Styling headers */
-header {
-  font-family: 'Arial Rounded MT Bold', 'Arial Rounded MT', Arial, sans-serif;
-  font-size: 24px; 
-  color: #f4f4f2;
-  text-align: center;  
-}
 
 div {
   background-color: #ebf0e4; 
@@ -122,20 +115,19 @@ p {
 
 ul.flashes {
   list-style-type: none; 
-  padding: 10px 20px; 
-  background-color: #f3f4f2; 
-  border: 2px solid #789262; 
-  border-radius: 5px; 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-  width: 80%; 
+  padding: 6px 8px; 
+  background-color: rgb(241, 247, 235); 
+  border: 3px dashed #f4c129; 
+  border-radius: 3px;  
   margin: 10px auto; 
 }
 
 ul.flashes li {
-  color: #505050; 
-  font-size: 16px; 
-  padding: 5px; 
-  border-bottom: 1px solid #789262;
+  font-family: 'Courier New', Courier, monospace;
+  color: hsl(41, 84%, 56%); 
+  font-size: 12px; 
+  text-align: center;
+  font-weight: bold;
 }
 
 ul.flashes li:last-child {

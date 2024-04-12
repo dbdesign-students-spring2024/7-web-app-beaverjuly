@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Mini Valley</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-  </head>
-  <body>
+    <!-- Google Font for header only -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+</head>
+<body>
     <div class="container">
-      <header>
-        <h1>Mini Valley</h1>
-        <p>
-          <a href="{{ url_for('home')}}">Entrance</a> |
-          <a href="{{ url_for('read')}}">Our Valley</a> |
-          <a href="{{ url_for('create')}}">Voice My Echo</a>
-          {% if 'username' in session %}
-          | <a href="{{ url_for('profile', username=session['username']) }}">My Profile</a>
-          {% endif %}
-        </p>
-      </header>
-      <main>{% block container %} {% endblock %}</main>
-      <footer style="text-align: center; padding: 4px 8px; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <p style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 10px; color: #f8f8f8; margin: 0;">
-            See how Mini Valley was built:
-            <a href="https://github.com/nyu-database-design/flask-mongodb-web-app" style="color: #ffed25; text-decoration: none;">available on Github</a>.
-        </p>
-    </footer>
-    
+        <header>
+            <!-- Apply the Google Font to this h1 only -->
+            <h1 style="font-family: 'Bungee Spice', Arial, sans-serif; text-shadow: 2px 2px 0 rghwb(90 93% 5%); font-size: 48px; text-align: center;">Mini Valley</h1>
+            <p>
+                <a href="{{ url_for('home')}}">Entrance</a> |
+                <a href="{{ url_for('read')}}">Our Valley</a> |
+                <a href="{{ url_for('create')}}">Voice My Echo</a>
+                {% if 'username' in session %}
+                | <a href="{{ url_for('profile', username=session['username']) }}">My Profile</a>
+                {% endif %}
+            </p>
+        </header>
+        <main>{% block container %} {% endblock %}</main>
+        <footer style="text-align: center; padding: 4px 8px; border-radius: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+            <p style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 10px; color: #f8f8f8; margin: 0;">
+                See how Mini Valley was built:
+                <a href="https://github.com/nyu-database-design/flask-mongodb-web-app" style="color: #ffed25; text-decoration: none;">available on Github</a>.
+            </p>
+        </footer>
     </div>
-  </body>
+</body>
 </html>
+

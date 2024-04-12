@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<div class="container" style="text-align: center; background-color: #f4f4f2; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 50%; margin: auto;">
-    <h1 style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 24px; color: #e0eed4; text-shadow: 1px 1px 2px #505050; margin-top: 20px; margin-bottom: 20px;">Welcome to Mini Valley!</h1>
+<div class="container" style="text-align: center; background-color: hwb(60 97% 0%); padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 50%; margin: auto;">
+    <h1 style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 24px; color: hsl(100, 100%, 98%); text-shadow: 1px 1px 2px hwb(84 25% 44%); margin-top: 20px; margin-bottom: 20px;">Welcome to Mini Valley!</h1>
     <form action="{{ url_for('logout') }}" method="post">
-        <input type="submit" value="Logout" style="font-size: 16px; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #638c50; background-color: #e1f3d1; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; width: 100%; margin-top: 10px;">
+        <input type="submit" value="Logout" style="font-size: 16px; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #638c50; background-color: hsl(90, 50%, 96%); padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; width: 100%; margin-top: 10px;">
     </form>
 </div>
 {% endblock %}
