@@ -6,10 +6,9 @@
 
 <!-- Combined form for posting new content -->
 <form action="{{ url_for('create') }}" method="POST">
-  <p>This is Me, <input type="text" id="fname" name="fname" value="{{ session['username'] if 'username' in session else '' }}" readonly />
-  <textarea name="fmessage" placeholder="Voice your thoughts here..."></textarea>
+  <textarea name="fmessage" placeholder="What's up, {{ session['username']}}?"></textarea>
   <br />
-  <input type="submit" name="post-btn" value="Post" />
+  <input type="submit" name="post-btn" value="Send out the Echo!" />
 </form>
 
 

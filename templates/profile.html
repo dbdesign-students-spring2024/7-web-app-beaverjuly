@@ -5,16 +5,15 @@
 
 <!-- Form to update or set bio -->
 <form action="{{ url_for('update_bio') }}" method="post">
-  <label for="bio">Here's a little bit about myself...</label>
   <textarea id="bio" name="bio">{{ user.bio if user.bio else 'Brief bio...' }}</textarea>
   <br />
-  <button type="submit">Save Bio</button>
+  <button type="submit">Save My Bio!</button>
 </form>
 
 {% if user.bio %}
 <!-- Option to delete bio -->
 <form action="{{ url_for('delete_bio') }}" method="post">
-  <button type="submit">Delete Bio</button>
+  <button type="submit">Erase My Bio!</button>
 </form>
 {% endif %}
 
