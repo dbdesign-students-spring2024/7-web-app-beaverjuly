@@ -1,25 +1,175 @@
+/* Base style for all text within the container to ensure it's readable against the green background */
 .container {
-  border: 2px solid;
+  color: #f4f4f2; 
+  border: 2px solid #789262;
+  background: url('valley-texture.jpeg') no-repeat center center;
+  background-size: cover; 
   width: 50%;
   margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
 }
 
-header,
-footer,
-main {
+/* Ensure that headers, footers, and main content area inherit the base color unless otherwise specified */
+header, footer, main {
   padding: 20px;
 }
 
-header,
-main {
-  border-bottom: 2px solid;
-  margin-bottom: 5px;
+/* theme for headers and main areas */
+header, main {
+  border-bottom: 3px dashed #a5c77f; 
+  margin-bottom: 10px; 
 }
+
+@font-face {
+  font-family: 'Arial Rounded MT Bold', 'Arial Rounded MT', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Styling headers */
+header {
+  font-family: 'Arial Rounded MT Bold', 'Arial Rounded MT', Arial, sans-serif;
+  font-size: 24px; 
+  color: #f4f4f2;
+  text-align: center;  
+}
+
+div {
+  background-color: #ebf0e4; 
+  border-left: 5px solid #789262; 
+  padding: 15px;
+  margin-bottom: 20px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+/* Style for the container to ensure visibility when needed */
+#usernameField {
+  display: block; /* change it to block to see the styling; use JavaScript to toggle visibility */
+  background-color: #f4f4f2; /* a light background for the container */
+  padding: 20px; /* padding around the content within the container */
+  border-radius: 8px; /* rounded corners for a modern look */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* subtle shadow for depth */
+  width: 300px; /* specific width, adjust as needed */
+  margin: 20px auto; /* centering the div */
+}
+
+/* Styling the label 'My name is' */
+#usernameField label {
+  font-size: 16px; /* larger font size for clarity */
+  color: #789262; /* thematic green color matching your site's palette */
+  font-weight: bold; /* make the label text bold */
+  display: block; /* block display to ensure it takes its own line */
+  margin-bottom: 10px; /* space between the label and the input field */
+}
+
+/* Styling the input field */
+#usernameField input[type="text"] {
+  font-size: 10px; /* font size for the input text */
+  padding: 10px; /* padding inside the input for ease of text entry */
+  width: 100%; /* makes the input field take up the full container width */
+  box-sizing: border-box; /* ensures padding doesn't affect the width */
+  border: 2px solid #a5c77f; /* border color that fits the thematic style */
+  border-radius: 4px; /* rounded corners for the input field */
+  color: #333; /* darker color for text input for better readability */
+  background-color: #ffffff; /* white background for the input field */
+}
+
+/* Hover and focus effects for input field */
+#usernameField input[type="text"]:hover,
+#usernameField input[type="text"]:focus {
+  border-color: #789262; /* darker green when hovered or focused */
+  outline: none; /* removes the default focus outline */
+}
+
+
+/*Tabs*/
+header p a {
+  font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+  font-size: 14px;
+  color: #789262; 
+  text-decoration: none;
+  padding: 5px 8px;
+  margin: 0 4px;
+  background-color: #f4f4f2; 
+  border-radius: 3px; 
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header p a:hover {
+  background-color: #a5c77f; 
+  color: #ffffff;
+}
+
+
+h2 {
+  font-family: 'Arial Rounded MT Bold', 'Arial Rounded MT', Arial, sans-serif; 
+  color: #f9f9f9;
+  font-size: 18px;
+  text-align: center; 
+  margin-top: 20px; 
+  margin-bottom: 10px; 
+}
+
+
+p {
+  font-family:'Comic Sans MS', 'Chalkboard SE', sans-serif; 
+  color: #444b3a; 
+  font-size: 16px; 
+  text-align: center; 
+  margin-bottom: 20px; 
+}
+
+ul.flashes {
+  list-style-type: none; 
+  padding: 10px 20px; 
+  background-color: #f3f4f2; 
+  border: 2px solid #789262; 
+  border-radius: 5px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+  width: 80%; 
+  margin: 10px auto; 
+}
+
+ul.flashes li {
+  color: #505050; 
+  font-size: 16px; 
+  padding: 5px; 
+  border-bottom: 1px solid #789262;
+}
+
+ul.flashes li:last-child {
+  border-bottom: none; 
+}
+
 
 p.post {
-  font-size: 12px;
+  color: #505050;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px; 
+  line-height: 1.6;
+  margin-bottom: 5px; 
 }
 
-footer {
-  margin-bottom: 5px;
+
+
+div > p:last-child { 
+  font-size: 16px; 
+  color: #333;
+  padding-left: 20px;
 }
+
+/* Styling specifically for "Edit" and "Delete" links */
+a[href*="edit"], a[href*="delete"] {
+  font-size: smaller;
+  color: #ffffff; 
+  background-color: #789262; 
+  padding: 2px 5px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s; 
+}
+
+a[href*="edit"]:hover, a[href*="delete"]:hover {
+  background-color: #789262;
+  color: #e2e6ea;

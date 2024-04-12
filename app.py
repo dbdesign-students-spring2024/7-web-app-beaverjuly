@@ -78,13 +78,9 @@ def login():
         
         if action == 'name_myself':
             username = request.form.get('username', '').strip()
-            if not username:  # Check if username is empty
-                flash('Please give yourself a name.')
-                return redirect(url_for('login'))
         elif action == 'be_nameless':
             username = 'Nameless-' + str(uuid.uuid4())[:8]
         else:
-            flash('Invalid login attempt.')
             return redirect(url_for('login'))
         
         session['username'] = username
@@ -92,9 +88,8 @@ def login():
         if not user:
             # Create a new user in the database if it does not exist
             db.users.insert_one({"username": username, "bio": ""})
-        
         return redirect(url_for('profile'))
-
+    
     return render_template('login.html')
 
 
@@ -116,7 +111,7 @@ def read_profile(username):
     user = db.users.find_one({"username": username})
     if not user:
         # Include the username in the flash message
-        flash(f"Oops, {username} has gone missing!")
+        flash(f"Oops, {username} has gone off the planet!")
         return redirect(url_for('read'))
     return render_template('read_profile.html', user=user)
 
@@ -177,8 +172,6 @@ def create():
 
 
 
-
-
 @app.route("/edit/<mongoid>")
 def edit(mongoid):
     """
@@ -210,7 +203,6 @@ def edit_post(mongoid):
     return redirect(url_for("read"))
 
 
-
 @app.route("/delete/<mongoid>")
 def delete(mongoid):
     """
@@ -220,7 +212,6 @@ def delete(mongoid):
     doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
     db.exampleapp.delete_one({"_id": ObjectId(mongoid)})
     return redirect(url_for("read"))
-
 
 
 @app.route("/webhook", methods=["POST"])

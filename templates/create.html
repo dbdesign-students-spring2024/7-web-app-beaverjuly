@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Voice My Echo!</h2>
-<p>Voice your echo and listen to the echoes of others.</p>
+<div style="text-align: center; background-color: #f5f7f4; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 50%; margin: auto;">
+    <h2 style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 24px; color: #85b161; margin-top: 24px; margin-bottom: 10px;">Voice My Echo!</h2>
+    <p style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 16px; color: #626054;">Voice your echo and listen to the echoes of others.</p>
 
-<!-- Combined form for posting new content -->
-<form action="{{ url_for('create') }}" method="POST">
-  <textarea name="fmessage" placeholder="What's up, {{ session['username']}}?"></textarea>
-  <br />
-  <input type="submit" name="post-btn" value="Send out the Echo!" />
-</form>
-
-
+    <!-- Combined form for posting new content -->
+    <form action="{{ url_for('create') }}" method="POST" style="margin-top: 20px;">
+        <textarea name="fmessage" placeholder="What's up, {{ session['username'] }}?" style="font-family: 'Courier New', Courier, monospace; font-size: 14px; width: 80%; padding: 10px; border: 2px solid #a5c77f; border-radius: 4px; height: 100px; box-sizing: border-box; background-color: #ffffff;"></textarea>
+        <br><br>
+        <input type="submit" name="post-btn" value="Send" style="font-size: 14px; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #fff; background-color: #789262; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; width: 40%; margin: 5px;">
+    </form>
+</div>
 {% endblock %}
+

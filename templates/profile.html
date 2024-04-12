@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h1>This is Me, {{ user.username }}</h1>
+<div style="text-align: center; background-color: #f4f4f2; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 50%; margin: auto;">
+    <h1 style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 24px; color: #86a75f;">This is Me, {{ user.username }}</h1>
 
-<!-- Form to update or set bio -->
-<form action="{{ url_for('update_bio') }}" method="post">
-  <textarea id="bio" name="bio">{{ user.bio if user.bio else 'Brief bio...' }}</textarea>
-  <br />
-  <button type="submit">Save My Bio!</button>
-</form>
+    <!-- Form to update or set bio -->
+    <form action="{{ url_for('update_bio') }}" method="post">
+      <textarea id="bio" name="bio" style="width: 100%; height: 100px; padding: 10px; border: 2px solid #a5c77f; border-radius: 4px; font-family: 'Courier New', Courier, monospace; font-size: 14px; resize: vertical; box-sizing: border-box;">{{ user.bio if user.bio else 'Brief bio...' }}</textarea>
+      <br />
+      <button type="submit" style="font-size: 16px; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #fff; background-color: #789262; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; width: 100%; margin-top: 10px;">Save My Bio!</button>
+    </form>
 
-{% if user.bio %}
-<!-- Option to delete bio -->
-<form action="{{ url_for('delete_bio') }}" method="post">
-  <button type="submit">Erase My Bio!</button>
-</form>
-{% endif %}
-
-
+    {% if user.bio %}
+    <!-- Option to delete bio -->
+    <form action="{{ url_for('delete_bio') }}" method="post">
+      <button type="submit" style="font-size: 16px; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #fff; background-color: hwb(49 11% 17%); padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; width: 100%; margin-top: 10px;">Erase My Bio!</button>
+    </form>
+    {% endif %}
+</div>
 {% endblock %}
+

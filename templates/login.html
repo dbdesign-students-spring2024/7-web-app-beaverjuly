@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Login</h2>
-<p>Name Yourself or Go Nameless!</p>
-<form action="{{ url_for('login') }}" method="post" id="loginForm">
-    <!-- Username field hidden initially -->
-    <div id="usernameField" style="display: none;">
-        <label for="username">My name is</label>
-        <input type="text" id="username" name="username" placeholder="Don't forget to hit Enter">
-    </div>
-    <br><br>
-    <!-- Buttons for user action -->
-    <button type="button" onclick="showUsernameField()">Name myself!</button>
-    <button type="button" onclick="submitNameless()">Go Nameless!</button>
-</form>
+<div style="text-align: center; background-color: #f5f7f4; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 50%; margin: auto;">
+    <h2 style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 24px; color: #85b161; margin-top: 24px; margin-bottom: 10px;">Login</h2>
+    <p style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 16px; color: #626054;">Name Yourself or Go Nameless!</p>
+    
+    <form action="{{ url_for('login') }}" method="post" id="loginForm">
+        <!-- Username field hidden initially -->
+        <div id="usernameField" style="display: none; background-color: #fff; padding: 10px; border-radius: 5px; border: 2px solid #a5c77f; width: 80%; margin: 10px auto;">
+            <label for="username" style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #789262; font-size: 16px; font-weight: bold; display: block; margin-bottom: 5px;">My name is</label>
+            <input type="text" id="username" name="username" placeholder="Don't forget to hit Enter" style="font-size: 14px; font-family: 'Courier New', Courier, monospace; padding: 10px; width: 100%; box-sizing: border-box; border: 2px solid #a5c77f; border-radius: 4px; color: #333; background-color: #ffffff;">
+        </div>
+        <br><br>
+        <!-- Buttons for user action -->
+        <button type="button" onclick="showUsernameField()" style="font-size: 14px; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #fff; background-color: #789262; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; width: 40%; margin: 5px;">Name myself!</button>
+        <button type="button" onclick="submitNameless()" style="font-size: 14px; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; color: #fff; background-color: #d4a82d; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s; width: 40%; margin: 5px;">Go Nameless!</button>
+    </form>
+</div>
+
 
 <script>
 function showUsernameField() {
