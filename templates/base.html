@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Flask-MongoDB Example App</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-    />
+    <title>Mini Valley</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
   <body>
     <div class="container">
       <header>
-        <h1>Flask-MongoDB Example App</h1>
+        <h1>Mini Valley</h1>
         <p>
-          <a href="{{ url_for('home')}}">Home</a> |
-          <a href="{{ url_for('read')}}">All posts</a> |
-          <a href="{{ url_for('create')}}">Create a post</a>
+          <a href="{{ url_for('home')}}">Entrance</a> |
+          <a href="{{ url_for('read')}}">Our Valley</a> |
+          <a href="{{ url_for('create')}}">Find My Voice</a>
+          {% if 'username' in session %}
+          | <a href="{{ url_for('profile', username=session['username']) }}">My Profile</a>
+          {% endif %}
         </p>
       </header>
       <main>{% block container %} {% endblock %}</main>
       <footer>
         <p>
-          The source code for this example app is
-          <a href="https://github.com/nyu-database-design/flask-mongodb-web-app"
-            >available on Github</a
-          >.
+          See how Mini Valley was built:
+          <a href="https://github.com/nyu-database-design/flask-mongodb-web-app">available on Github</a>.
         </p>
       </footer>
     </div>

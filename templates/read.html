@@ -1,23 +1,36 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Read</h2>
-<p>This page shows information pulled from a MongoDB database collection.
-        
-    {% for doc in docs %}
-    <div>
-        <hr class="solid">
-        <p class="post">
-            Posted by {{doc.name}} at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
-            <br/>
-            <a href="{{ url_for('edit',mongoid=doc._id)}}">Edit</a> | <a href="{{ url_for('delete',mongoid=doc._id)}}">Delete</a>
-            <br/>
-        </p>
-        <p>
-            {{ doc.message }}
-        </p>
-            
-    </div>
-    {%endfor%}
-</p>
+<h2>Explore the Valley!</h2>
+<p>Here are all Echoes captured.</p>
+
+<!-- Display flash messages -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% for doc in docs %}
+<div>
+    <hr class="solid">
+    <p class="post">
+        Voiced by <a href="{{ url_for('read_profile', username=doc.name) }}" target="_blank">{{ doc.name }}</a> at {{ doc.created_at.strftime("%H:%M on %d %B %Y") }}
+        <br/>
+        <!-- Conditionally display Edit and Delete links -->
+        {% if session['username'] == doc.name %}
+        <a href="{{ url_for('edit', mongoid=doc._id) }}">Edit</a> | 
+        <a href="{{ url_for('delete', mongoid=doc._id) }}" onclick="return confirm('Are you sure?');">Delete</a>
+        {% endif %}
+    </p>
+    <p>{{ doc.message }}</p>
+</div>
+{% endfor %}
+
 {% endblock %}
+
+

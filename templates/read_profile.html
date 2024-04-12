@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<h1>This is {{ user.username }}</h1>
+<p>{{ user.bio if user.bio else "Oops, they hadn't introduce themselves yet..." }}</p>
+{% endblock %}

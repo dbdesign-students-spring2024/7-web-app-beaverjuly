@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<h2>Login</h2>
+<p>Name Yourself or Go Nameless!</p>
+<form action="{{ url_for('login') }}" method="post" id="loginForm">
+    <!-- Username field hidden initially -->
+    <div id="usernameField" style="display: none;">
+        <label for="username">My name is</label>
+        <input type="text" id="username" name="username" placeholder="Don't forget to hit Enter">
+    </div>
+    <br><br>
+    <!-- Buttons for user action -->
+    <button type="button" onclick="showUsernameField()">Name myself!</button>
+    <button type="button" onclick="submitNameless()">Go Nameless!</button>
+</form>
+
+<script>
+function showUsernameField() {
+    document.getElementById('usernameField').style.display = 'block';
+    // Set the form to submit as 'name_myself' only when the username is shown and filled
+    var form = document.getElementById('loginForm');
+    form.onsubmit = function() {
+        if (document.getElementById('username').value.trim()) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'action';
+            input.value = 'name_myself';
+            form.appendChild(input);
+        }
+        return true; // Proceed to submit
+    };
+}
+
+function submitNameless() {
+    var form = document.getElementById('loginForm');
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'action';
+    input.value = 'be_nameless';
+    form.appendChild(input);
+    form.submit(); // Submit the form programmatically
+}
+</script>
+
+{% endblock %}

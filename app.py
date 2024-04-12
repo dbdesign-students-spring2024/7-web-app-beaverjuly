@@ -4,8 +4,9 @@ import os
 import sys
 import subprocess
 import datetime
+import uuid
 
-from flask import Flask, render_template, request, redirect, url_for, make_response
+from flask import Flask, render_template, request, redirect, url_for, make_response, flash
 
 # import logging
 import sentry_sdk
@@ -18,6 +19,7 @@ import pymongo
 from pymongo.errors import ConnectionFailure
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
+from flask import session
 
 # load credentials and configuration options from .env file
 # if you do not yet have a file named .env, make one based on the template in env.example
@@ -35,13 +37,12 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     profiles_sample_rate=1.0,
     integrations=[FlaskIntegration()],
-    traces_sample_rate=1.0,
     send_default_pii=True,
 )
 
 # instantiate the app using sentry for debugging
 app = Flask(__name__)
-
+app.secret_key = 'my_mini_sphere' 
 # # turn on debugging if in development mode
 # app.debug = True if os.getenv("FLASK_ENV", "development") == "development" else False
 
@@ -63,14 +64,95 @@ except ConnectionFailure as e:
 
 # set up the routes
 
-
-@app.route("/")
+@app.route('/')
 def home():
-    """
-    Route for the home page.
-    Simply returns to the browser the content of the index.html file located in the templates folder.
-    """
-    return render_template("index.html")
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('home.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        action = request.form.get('action')
+        
+        if action == 'name_myself':
+            username = request.form.get('username', '').strip()
+            if not username:  # Check if username is empty
+                flash('Please give yourself a name.')
+                return redirect(url_for('login'))
+        elif action == 'be_nameless':
+            username = 'Nameless-' + str(uuid.uuid4())[:8]
+        else:
+            flash('Invalid login attempt.')
+            return redirect(url_for('login'))
+        
+        session['username'] = username
+        user = db.users.find_one({"username": username})
+        if not user:
+            # Create a new user in the database if it does not exist
+            db.users.insert_one({"username": username, "bio": ""})
+        
+        return redirect(url_for('profile'))
+
+    return render_template('login.html')
+
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('username', None) 
+    return redirect(url_for('login'))
+
+
+@app.route('/profile')
+def profile():
+    username = session.get('username')
+    if not username:
+        return redirect(url_for('login'))
+
+    user = db.users.find_one({"username": username})
+    if not user:
+        # Flash a message and redirect to login
+        flash('You do not have a name yet...login or remain nameless (no judgement)')
+        return redirect(url_for('login'))
+    
+    user_posts = list(db.exampleapp.find({"username": username}).sort("created_at", -1))
+    return render_template('profile.html', user=user, posts=user_posts)
+
+@app.route('/user/<username>')
+def read_profile(username):
+    user = db.users.find_one({"username": username})
+    if not user:
+        # Include the username in the flash message
+        flash(f"Oops, {username} has gone missing!")
+        return redirect(url_for('read'))
+    return render_template('read_profile.html', user=user)
+
+
+
+@app.route('/update_bio', methods=['POST'])
+def update_bio():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    new_bio = request.form['bio']
+    db.users.update_one({"username": session['username']}, {"$set": {"bio": new_bio}})
+    
+    return redirect(url_for('profile'))
+
+
+@app.route('/delete_bio', methods=['POST'])
+def delete_bio():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    
+    #Set bio to an empty string
+    db.users.update_one({"username": session['username']}, {"$set": {"bio": ""}})
+    
+    return redirect(url_for('profile'))
+
+
 
 
 @app.route("/read")
@@ -85,89 +167,69 @@ def read():
     return render_template("read.html", docs=docs)  # render the read template
 
 
-@app.route("/create")
+@app.route("/create", methods=["GET", "POST"])
 def create():
-    """
-    Route for GET requests to the create page.
-    Displays a form users can fill out to create a new document.
-    """
-    return render_template("create.html")  # render the create template
+    # Check if a user is logged in
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == "POST":
+        # Process the submitted form data if the user is logged in
+        name = request.form["fname"]
+        message = request.form["fmessage"]
+        doc = {"name": name, "message": message, "created_at": datetime.datetime.utcnow()}
+        db.exampleapp.insert_one(doc)
+        return redirect(url_for("read"))  # Redirect after POST
+    else:
+        # For a GET request, display the form only if the user is logged in
+        return render_template("create.html")
 
 
-@app.route("/create", methods=["POST"])
-def create_post():
-    """
-    Route for POST requests to the create page.
-    Accepts the form submission data for a new document and saves the document to the database.
-    """
-    name = request.form["fname"]
-    message = request.form["fmessage"]
 
-    # create a new document with the data the user entered
-    doc = {"name": name, "message": message, "created_at": datetime.datetime.utcnow()}
-    db.exampleapp.insert_one(doc)  # insert a new document
-
-    return redirect(
-        url_for("read")
-    )  # tell the browser to make a request for the /read route
 
 
 @app.route("/edit/<mongoid>")
 def edit(mongoid):
     """
     Route for GET requests to the edit page.
-    Displays a form users can fill out to edit an existing record.
-
-    Parameters:
-    mongoid (str): The MongoDB ObjectId of the record to be edited.
+    Only the user who created the record can view the form to edit it.
     """
     doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
-    return render_template(
-        "edit.html", mongoid=mongoid, doc=doc
-    )  # render the edit template
+    return render_template("edit.html", mongoid=mongoid, doc=doc)
 
 
 @app.route("/edit/<mongoid>", methods=["POST"])
 def edit_post(mongoid):
     """
     Route for POST requests to the edit page.
-    Accepts the form submission data for the specified document and updates the document in the database.
-
-    Parameters:
-    mongoid (str): The MongoDB ObjectId of the record to be edited.
+    Only the user who created the record can update it.
     """
-    name = request.form["fname"]
+    doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
+    name = session['username']  
     message = request.form["fmessage"]
 
-    doc = {
-        # "_id": ObjectId(mongoid),
+    updated_doc = {
         "name": name,
         "message": message,
         "created_at": datetime.datetime.utcnow(),
     }
-
     db.exampleapp.update_one(
-        {"_id": ObjectId(mongoid)}, {"$set": doc}  # match criteria
+        {"_id": ObjectId(mongoid)}, {"$set": updated_doc}  # match criteria
     )
+    return redirect(url_for("read"))
 
-    return redirect(
-        url_for("read")
-    )  # tell the browser to make a request for the /read route
 
 
 @app.route("/delete/<mongoid>")
 def delete(mongoid):
     """
     Route for GET requests to the delete page.
-    Deletes the specified record from the database, and then redirects the browser to the read page.
-
-    Parameters:
-    mongoid (str): The MongoDB ObjectId of the record to be deleted.
+    Only the user who created the record can delete it.
     """
+    doc = db.exampleapp.find_one({"_id": ObjectId(mongoid)})
     db.exampleapp.delete_one({"_id": ObjectId(mongoid)})
-    return redirect(
-        url_for("read")
-    )  # tell the web browser to make a request for the /read route.
+    return redirect(url_for("read"))
+
 
 
 @app.route("/webhook", methods=["POST"])
