@@ -11,7 +11,7 @@
         <p>
           <a href="{{ url_for('home')}}">Entrance</a> |
           <a href="{{ url_for('read')}}">Our Valley</a> |
-          <a href="{{ url_for('create')}}">Find My Voice</a>
+          <a href="{{ url_for('create')}}">Voice My Echo</a>
           {% if 'username' in session %}
           | <a href="{{ url_for('profile', username=session['username']) }}">My Profile</a>
           {% endif %}

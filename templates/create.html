@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block container %}
-<h2>Find my voice!</h2>
+<h2>Voice My Echo!</h2>
 <p>Voice your echo and listen to the echoes of others.</p>
 
 <!-- Combined form for posting new content -->
@@ -12,17 +12,5 @@
   <input type="submit" name="post-btn" value="Post" />
 </form>
 
-<!-- Displaying posts -->
-<div>
-  {% for post in exampleapp %}
-  <div class="post">
-    <p>See my past Echoes</p>
-    <p>{{ exampleapp.fmessage }}</p>
-    <small>Voiced by {{ exampleapp.name }} at {{ exampleapp.created_at }}</small>
-  </div>
-  {% else %}
-  <p>All Silence Here...</p>
-  {% endfor %}
-</div>
 
 {% endblock %}

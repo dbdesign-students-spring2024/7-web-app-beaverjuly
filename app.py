@@ -108,17 +108,8 @@ def logout():
 @app.route('/profile')
 def profile():
     username = session.get('username')
-    if not username:
-        return redirect(url_for('login'))
-
     user = db.users.find_one({"username": username})
-    if not user:
-        # Flash a message and redirect to login
-        flash('You do not have a name yet...login or remain nameless (no judgement)')
-        return redirect(url_for('login'))
-    
-    user_posts = list(db.exampleapp.find({"username": username}).sort("created_at", -1))
-    return render_template('profile.html', user=user, posts=user_posts)
+    return render_template('profile.html', user=user)
 
 @app.route('/user/<username>')
 def read_profile(username):
