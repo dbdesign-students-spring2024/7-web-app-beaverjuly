@@ -9,6 +9,7 @@ This application includes several routes that manage user sessions, profiles, an
 - **Endpoint:** `/`
 - **Functionality:** 
   - Redirects users to the login page if they are not already logged in (`'username' not in session`).
+  - In other words, user cannot post messages or have a profile page unless they log in first.
   - If logged in, the `home.html` template is rendered.
 
 ### Login Route
@@ -88,5 +89,9 @@ This application includes several routes that manage user sessions, profiles, an
 
   ## Note on Styling
 I styled the texts and backgrounds both directly in the html files and in the separate css file; for the purpose of general and more specified styling, respectively.
+ 
+ ## Citations
+- The font for the main header can be found on the following link: https://fonts.google.com/selection/embed;
+- Photo for the background is downloaded from the following link: https://cdn.wallpapersafari.com/21/19/6WrNXf.jpg
 
 ## The above work is completed individually. 
