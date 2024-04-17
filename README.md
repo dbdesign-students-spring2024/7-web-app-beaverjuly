@@ -9,7 +9,7 @@ http://i6.cims.nyu.edu/home/jy3813/public_html/7-web-app-beaverjuly
 This application includes several routes that manage user sessions, profiles, and interactive content creation. Below is a detailed description of each route:
 
 ### Home Route
-- **Endpoint:** `/`
+- **Endpoint:** `/home`
 - **Functionality:** 
   - Redirects users to the login page if they are not already logged in (`'username' not in session`).
   - In other words, user cannot post messages or have a profile page unless they log in first.
