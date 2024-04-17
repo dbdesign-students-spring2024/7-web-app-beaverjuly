@@ -3,6 +3,7 @@ For people who love nature but cannot quit social media to get to know each othe
 
 ### Link to Ddeployed Copy on NYU i6:
 http://i6.cims.nyu.edu/home/jy3813/public_html/7-web-app-beaverjuly
+sftp://i6.cims.nyu.edu/home/jy3813/public_html/7-web-app-beaverjuly
 
 ## Functionality Description
 
