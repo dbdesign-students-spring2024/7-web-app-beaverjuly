@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<h1>Welcome to the Mini Sphere!</h1>
+
+<!-- Form to post new content -->
+<form action="{{ url_for('post_message') }}" method="POST">
+  <textarea name="content" placeholder="What's on your mind?"></textarea>
+  <button type="submit">Post</button>
+</form>
+
+<!-- Displaying posts -->
+<div>
+  {% for post in posts %}
+  <div class="post">
+    <p>{{ post.content }}</p>
+    <small>Posted at {{ post.created_at }}</small>
+    <!-- Like button form for each post -->
+    <form action="{{ url_for('like_post', post_id=post._id) }}" method="post">
+      <button type="submit">Like</button>
+      {% if post.likes %}
+        <span>{{ post.likes }} likes</span>
+      {% else %}
+        <span>0 likes</span>
+      {% endif %}
+    </form>
+  </div>
+  {% else %}
+  <p>No posts yet!</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
