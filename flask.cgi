@@ -1,13 +1,9 @@
-#!/home/jy3813/public_html/7-web-app-beaverjuly/myenv/bin/python3
+#!/usr/bin/env python3
+
 import sys
-import os
-
-# Add the directory containing your app to the Python path, if needed
-sys.path.insert(0, '/home/jy3813/public_html/7-web-app-beaverjuly')
-
+sys.path.insert(0, '/misc/linux/centos7/x86_64/local/stow/python-3.6/lib/python3.6/site-packages/')
 from wsgiref.handlers import CGIHandler
-from app import app  # Make sure 'app' is the Flask instance
-
+from app import app
 CGIHandler().run(app)
 
 
