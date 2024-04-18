@@ -6,8 +6,26 @@ http://i6.cims.nyu.edu/~jy3813/7-web-app-beaverjuly/flask.cgi
 sftp://i6.cims.nyu.edu/home/jy3813/public_html/7-web-app-beaverjuly/flask.cgi
 
 ### Identification of Error in Hosting on NYU i6:
-The version of Python I have on the i6 server is Python 2.7.5; while the Python version I have on my local machine is Python 3.11.6. This causes a syntax error that keeps occuring in the i6 server, while running fine in my local environment.  
+The version of Python I have on the i6 server is Python 2.7.5; while the Python version I have on my local machine is Python 3.11.6. This causes a syntax error that keeps occuring in the i6 server (specifically, the f"string" has not yet been introduced in 2.7.5 version, which I incorperated in my codes, and thus Python on i6 interprets my usage as a syntax error, while Python in my local environment does not), while running fine in my local environment. This is what has been causing the internal server error 500.
 
+The following is the error message returned when I executed `./flask.cgi` to troubleshoot in the Terminal:
+```
+<!-- The above is a description of an error in a Python program, formatted
+     for a Web browser because the 'cgitb' module was enabled.  In case you
+     are not reading this in a Web browser, here is the original traceback:
+
+Traceback (most recent call last):
+  File "./flask.cgi", line 12, in &lt;module&gt;
+    from app import app
+  File "/web/jy3813/7-web-app-beaverjuly/app.py", line 117
+    flash(f"Oops, {username} has gone off the planet!")
+                                                     ^
+SyntaxError: invalid syntax
+
+-->
+
+
+```
 ## Functionality Description
 
 This application includes several routes that manage user sessions, profiles, and interactive content creation. Below is a detailed description of each route:
