@@ -164,14 +164,21 @@ def create():
 
     if request.method == "POST":
         # Process the submitted form data if the user is logged in
-        name = request.form["fname"]
-        message = request.form["fmessage"]
-        doc = {"name": name, "message": message, "created_at": datetime.datetime.utcnow()}
+        username = session['username']  # Retrieve username from session
+        message = request.form.get("fmessage")
+        if not message:
+            # Handle the case where no message is provided
+            flash("Message cannot be empty.", "error")
+            return render_template("create.html")
+
+        # Prepare the document to insert
+        doc = {"name": username, "message": message, "created_at": datetime.datetime.utcnow()}
         db.exampleapp.insert_one(doc)
         return redirect(url_for("read"))  # Redirect after POST
     else:
         # For a GET request, display the form only if the user is logged in
         return render_template("create.html")
+
 
 
 
