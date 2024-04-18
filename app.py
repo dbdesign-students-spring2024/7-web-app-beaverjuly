@@ -14,14 +14,14 @@ import sentry_sdk
 from sentry_sdk.integrations.flask import (
     FlaskIntegration,
 )  # delete this if not using sentry.io
-
+"""
 # from markupsafe import escape
 import pymongo
 from pymongo.errors import ConnectionFailure
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 from flask import session
-"""
+
 # load credentials and configuration options from .env file
 # if you do not yet have a file named .env, make one based on the template in env.example
 load_dotenv(override=True)  # take environment variables from .env.
