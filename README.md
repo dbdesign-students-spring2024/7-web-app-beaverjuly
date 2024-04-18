@@ -5,6 +5,9 @@ For people who love nature but cannot quit social media to get to know each othe
 http://i6.cims.nyu.edu/~jy3813/7-web-app-beaverjuly/flask.cgi
 sftp://i6.cims.nyu.edu/home/jy3813/public_html/7-web-app-beaverjuly/flask.cgi
 
+### Identification of Error in Hosting on NYU i6:
+The version of Python I have on the i6 server is Python 2.7.5; while the Python version I have on my local machine is Python 3.11.6. This causes a syntax error that keeps occuring in the i6 server, while running fine in my local environment.  
+
 ## Functionality Description
 
 This application includes several routes that manage user sessions, profiles, and interactive content creation. Below is a detailed description of each route:
